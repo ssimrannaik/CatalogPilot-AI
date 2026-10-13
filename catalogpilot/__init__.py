@@ -1,0 +1,1 @@
+"""CatalogPilot AI feature modules."""

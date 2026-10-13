@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#111827">
+  <title>CatalogPilot AI | Commerce Operations</title>
+  <link rel="stylesheet" href="/static/styles.css">
+</head>
+<body>
+  <aside class="sidebar">
+    <a class="brand" href="#overview" aria-label="CatalogPilot overview">
+      <span class="brand-mark">CP</span>
+      <span><strong>CatalogPilot</strong><small>COMMERCE OPERATIONS</small></span>
+    </a>
+    <p class="nav-label">WORKSPACE</p>
+    <nav aria-label="Workspace navigation">
+      <a class="active" href="#overview" data-view-link="overview"><span class="nav-icon">⌂</span>Overview</a>
+      <a href="#products" data-view-link="products"><span class="nav-icon">▤</span>Product catalog<span class="nav-count" id="navProductCount">—</span></a>
+      <a href="#bulk-editor" data-view-link="bulk-editor"><span class="nav-icon">▦</span>Bulk editor</a>
+      <a href="#inventory" data-view-link="inventory"><span class="nav-icon">▣</span>Inventory</a>
+      <a href="#content-studio" data-view-link="content-studio"><span class="nav-icon">✧</span>Content studio</a>
+      <a href="#pricing" data-view-link="pricing"><span class="nav-icon">₹</span>Pricing</a>
+      <a href="#insights" data-view-link="insights"><span class="nav-icon">▥</span>Analytics</a>
+      <a href="#audit" data-view-link="audit"><span class="nav-icon">◎</span>Data quality</a>
+      <a href="#channel-readiness" data-view-link="channel-readiness"><span class="nav-icon">⇢</span>Channel readiness</a>
+      <a href="#copilot" data-view-link="copilot"><span class="nav-icon">✦</span>AI Copilot</a>
+      <a href="#channels" data-view-link="channels"><span class="nav-icon">⇄</span>Store connection</a>
+    </nav>
+    <div class="sidebar-spacer"></div>
+    <div class="connection-card">
+      <div class="connection-top"><span class="status-dot"></span><b id="modeLabel">Demo mode</b></div>
+      <small id="connectionDetail">Store connection status</small>
+      <button class="connection-action" id="refreshBtn">↻ &nbsp; Sync workspace</button>
+    </div>
+    <div class="sidebar-footer">CATALOGPILOT <span>·</span> WORKSPACE 01</div>
+  </aside>
+
+  <main class="main">
+    <header class="topbar">
+      <div class="breadcrumbs"><span>Workspace</span><i>/</i><b id="viewTitle">Overview</b></div>
+      <div class="top-actions">
+        <span class="live-status"><span></span> Workspace active</span>
+        <button class="avatar" aria-label="Workspace profile">CP</button>
+      </div>
+    </header>
+
+    <section class="page-heading" id="overview" data-view="overview">
+      <div>
+        <p class="eyebrow"><span id="dashboardDate">TODAY</span> · COMMERCE OPERATIONS</p>
+        <h1>Your catalog, at a glance.</h1>
+        <p class="muted">A live snapshot of product health, inventory risk, and catalog opportunities.</p>
+      </div>
+      <div class="heading-actions">
+        <button class="btn btn-secondary" id="exportBtn">↓ &nbsp; Export catalog</button>
+        <a class="btn btn-primary" href="#products">Browse products <span>→</span></a>
+      </div>
+    </section>
+
+    <section class="stats" data-view="overview" aria-label="Catalog summary">
+      <article class="stat stat-products"><div class="stat-icon">▤</div><span>Total products</span><strong id="totalProducts">—</strong><small id="productStatCaption">Across connected catalog</small></article>
+      <article class="stat stat-health"><div class="stat-icon">✳</div><span>Catalog health</span><strong id="healthScore">—</strong><small id="healthStatCaption">Average data completeness</small></article>
+      <article class="stat stat-stock"><div class="stat-icon">⚑</div><span>Stock alerts</span><strong id="stockAlerts">—</strong><small id="stockStatCaption">Low or out-of-stock products</small></article>
+      <article class="stat stat-issues"><div class="stat-icon">⌁</div><span>Open data issues</span><strong id="issueTotal">—</strong><small id="attentionCaption">Products needing attention</small></article>
+    </section>
+
+    <section class="analytics-grid" id="insights" data-view="insights">
+      <article class="panel chart-panel category-panel">
+        <div class="panel-head">
+          <div><p class="section-kicker">CATALOG MIX</p><h2>Products by category</h2><p class="muted">How your assortment is distributed.</p></div>
+          <span class="panel-menu" aria-hidden="true">···</span>
+        </div>
+        <div id="categoryChart" class="category-chart"><div class="loading-line">Loading category data…</div></div>
+      </article>
+      <article class="panel chart-panel health-panel">
+        <div class="panel-head">
+          <div><p class="section-kicker">DATA QUALITY</p><h2>Catalog health</h2><p class="muted">Products grouped by completeness score.</p></div>
+          <span class="health-score-badge" id="healthBadge">—%</span>
+        </div>
+        <div id="healthChart" class="health-chart"></div>
+        <div class="chart-legend"><span><i class="legend-dot healthy"></i>Healthy</span><span><i class="legend-dot needs-work"></i>Needs work</span><span><i class="legend-dot critical"></i>Critical</span></div>
+      </article>
+    </section>
+
+    <section class="operations-grid" data-view="overview">
+      <article class="panel alerts-panel">
+        <div class="panel-head">
+          <div><p class="section-kicker">NEEDS YOUR ATTENTION</p><h2>Priority alerts</h2><p class="muted">The quickest wins for your catalog today.</p></div>
+          <a class="quiet-link" href="#audit">View audit <span>→</span></a>
+        </div>
+        <div id="priorityAlerts" class="priority-list"><div class="loading-line">Finding priority items…</div></div>
+      </article>
+      <article class="panel category-summary-panel">
+        <div class="panel-head">
+          <div><p class="section-kicker">BUSINESS SNAPSHOT</p><h2>Assortment insights</h2><p class="muted">A quick read on what is in your store.</p></div>
+        </div>
+        <div class="snapshot-metrics">
+          <div><span>Categories</span><strong id="categoryCount">—</strong></div>
+          <div><span>Healthy products</span><strong id="healthyCount">—</strong></div>
+          <div><span>Missing images</span><strong id="missingImages">—</strong></div>
+        </div>
+        <div class="snapshot-note"><span>✦</span><p id="snapshotNote">Your catalog insights will appear here.</p></div>
+      </article>
+    </section>
+
+    <section class="panel table-panel" id="products" data-view="products">
+      <div class="panel-head product-head">
+        <div><p class="section-kicker">PRODUCT OPERATIONS</p><h2>Product catalog</h2><p class="muted">Search, inspect inventory, and improve product data.</p></div>
+        <div class="catalog-tools">
+          <label class="search-wrap"><span>⌕</span><input id="search" class="search" placeholder="Search name or SKU…" aria-label="Search products"></label>
+          <select id="categoryFilter" class="filter-select" aria-label="Filter by category"><option value="">All categories</option></select>
+          <select id="stockFilter" class="filter-select" aria-label="Filter by stock"><option value="">All stock</option><option value="low">Low stock</option><option value="out">Out of stock</option></select>
+        </div>
+      </div>
+      <div class="table-meta"><span id="productCount">Showing catalog…</span><button class="text-link" id="clearFilters">Clear filters</button></div>
+      <div class="table-wrap"><table><thead><tr><th>PRODUCT</th><th>CATEGORY</th><th>PRICE</th><th>INVENTORY</th><th>DATA HEALTH</th><th></th></tr></thead><tbody id="productRows"></tbody></table></div>
+    </section>
+
+    <section class="panel bulk-editor-panel" id="bulk-editor" data-view="bulk-editor">
+      <div class="panel-head">
+        <div><p class="section-kicker">BULK OPERATIONS</p><h2>Update products together</h2><p class="muted">Select products, set percentage price and stock changes, then review the preview before applying.</p></div>
+      </div>
+      <form id="bulkForm">
+        <div class="bulk-controls">
+          <label>Price change (%)<input id="bulkPricePercent" type="number" step="0.01" placeholder="e.g. 5 or -10"></label>
+          <label>Stock change (units)<input id="bulkStockDelta" type="number" step="1" placeholder="e.g. 10 or -2"></label>
+          <button class="btn btn-primary" id="bulkApplyBtn" type="submit">Apply to selected</button>
+        </div>
+        <p class="bulk-help">Leave an adjustment blank to keep that field unchanged. Negative stock totals and prices are not allowed.</p>
+      </form>
+      <div id="bulkResult" class="bulk-result" role="status" aria-live="polite"></div>
+      <div class="table-meta"><label class="bulk-select-all"><input id="bulkSelectAll" type="checkbox"> Select all products</label><span id="bulkSelectionCount">0 selected</span></div>
+      <div class="table-wrap"><table class="bulk-table"><thead><tr><th></th><th>PRODUCT</th><th>PRICE PREVIEW</th><th>STOCK PREVIEW</th></tr></thead><tbody id="bulkRows"></tbody></table></div>
+    </section>
+
+    <section class="panel inventory-panel" id="inventory" data-view="inventory">
+      <div class="panel-head">
+        <div><p class="section-kicker">STOCK CONTROL</p><h2>Inventory operations</h2><p class="muted">Prioritize products with the least stock and update quantities after review.</p></div>
+        <div class="inventory-summary"><span><i class="inventory-dot low-dot"></i><b id="lowStockCount">—</b> low</span><span><i class="inventory-dot out-dot"></i><b id="outStockCount">—</b> out</span></div>
+      </div>
+      <div class="table-wrap"><table class="inventory-table"><thead><tr><th>PRODUCT</th><th>SKU</th><th>ON HAND</th><th>STOCK STATUS</th><th>PRICE</th><th></th></tr></thead><tbody id="inventoryRows"></tbody></table></div>
+    </section>
+
+    <section class="content-studio" id="content-studio" data-view="content-studio">
+      <div class="studio-copy">
+        <div class="studio-icon">✧</div>
+        <p class="section-kicker">CONTENT STUDIO</p>
+        <h2>Make every product page work harder.</h2>
+        <p>Draft product descriptions with the AI assistant, review every suggestion, and approve updates before they reach your store.</p>
+        <div class="studio-points"><span>✓ &nbsp; Product-aware suggestions</span><span>✓ &nbsp; Human approval before save</span><span>✓ &nbsp; Local generator works without an API key</span></div>
+      </div>
+      <div class="studio-launch">
+        <label for="studioProduct">Choose a product to improve</label>
+        <select id="studioProduct" class="studio-select"><option value="">Select a product…</option></select>
+        <label for="studioKeywords">Add optional keywords</label>
+        <input id="studioKeywords" class="studio-input" placeholder="e.g. everyday, travel, minimalist">
+        <button class="btn btn-primary" id="studioLaunchBtn">Open in content editor <span>→</span></button>
+        <small>Suggestions are drafts. Confirm all product details before saving.</small>
+      </div>
+    </section>
+
+    <section class="panel margin-panel" id="pricing" data-view="pricing">
+      <div class="panel-head">
+        <div><p class="section-kicker">PRICING INTELLIGENCE</p><h2>Pricing &amp; gross margin</h2><p class="muted">Unit economics from catalog cost data. Excludes tax, shipping, fees, and operating costs.</p></div>
+        <a class="quiet-link" href="#insights">Analytics <span>↗</span></a>
+      </div>
+      <div class="margin-table-wrap"><table class="margin-table"><thead><tr><th>PRODUCT</th><th>SELLING PRICE</th><th>UNIT COST</th><th>GROSS PROFIT / UNIT</th><th>GROSS MARGIN</th><th>STATUS</th></tr></thead><tbody id="marginRows"></tbody></table></div>
+    </section>
+
+    <section class="panel audit-panel" id="audit" data-view="audit">
+      <div class="panel-head">
+        <div><p class="section-kicker">AUTOMATED REVIEW</p><h2>Data quality audit</h2><p class="muted">Find missing content, category gaps, and product information that needs review.</p></div>
+        <button class="btn btn-primary" id="auditBtn">✦ &nbsp; Run audit</button>
+      </div>
+      <div id="auditSummary" class="audit-summary">Loading audit…</div>
+      <div id="auditList" class="audit-list"></div>
+    </section>
+
+    <section class="panel readiness-panel" id="channel-readiness" data-view="channel-readiness">
+      <div class="panel-head readiness-heading">
+        <div><p class="section-kicker">MULTI-CHANNEL CATALOG CHECK</p><h2>Is your catalog ready to sell?</h2><p class="muted">Find channel-specific content gaps before preparing a listing.</p></div>
+        <label class="readiness-channel-label" for="readinessChannel">CHECKLIST PROFILE
+          <select id="readinessChannel" class="filter-select">
+            <option value="amazon">Amazon Marketplace</option>
+            <option value="shopify">Shopify Storefront</option>
+          </select>
+        </label>
+      </div>
+      <div class="readiness-disclaimer"><span>ⓘ</span><p id="readinessDescription">Loading channel checklist…</p></div>
+      <div class="readiness-metrics">
+        <article><span>Average readiness</span><strong id="readinessAverage">—%</strong><div class="readiness-track"><i id="readinessAverageBar"></i></div></article>
+        <article><span>Ready for checklist</span><strong id="readinessReady">—</strong></article>
+        <article><span>Need attention</span><strong id="readinessNeedsWork">—</strong></article>
+        <article><span>Products checked</span><strong id="readinessChecked">—</strong></article>
+      </div>
+      <div class="table-wrap readiness-table-wrap"><table class="readiness-table"><thead><tr><th>PRODUCT</th><th>READINESS</th><th>CHECKLIST GAPS &amp; NEXT STEPS</th><th></th></tr></thead><tbody id="readinessRows"><tr><td colspan="4" class="empty">Loading channel readiness…</td></tr></tbody></table></div>
+    </section>
+
+    <section class="copilot-banner" id="copilot" data-view="copilot">
+      <div class="copilot-intro">
+        <div class="copilot-symbol">✦</div>
+        <div><p class="eyebrow">YOUR CATALOG ASSISTANT</p><h2>Ask your catalog a question.</h2><p>Find incomplete products, spot duplicate candidates, check stock alerts, or get practical SEO guidance.</p></div>
+      </div>
+      <form id="copilotForm" class="copilot-form">
+        <label class="sr-only" for="copilotInput">Ask CatalogPilot Copilot</label>
+        <input id="copilotInput" placeholder="Try “show low stock items” or “find incomplete products”…">
+        <button class="btn btn-primary" type="submit">Ask Copilot <span>→</span></button>
+      </form>
+      <div id="copilotResult" class="copilot-result" aria-live="polite"></div>
+    </section>
+
+    <section class="panel channels-panel" id="channels" data-view="channels">
+      <div class="panel-head">
+        <div><p class="section-kicker">CHANNEL MANAGEMENT</p><h2>Store connection</h2><p class="muted">Manage the catalog source and verify whether live store updates are available.</p></div>
+        <span class="connection-status-pill" id="channelStatus">Checking connection…</span>
+      </div>
+      <div class="channel-card">
+        <div class="channel-brand">W</div>
+        <div class="channel-copy"><b>WooCommerce</b><small id="channelDetail">Checking store credentials…</small></div>
+        <div class="channel-type"><span>PRODUCT SYNC</span><b id="channelMode">Demo workspace</b></div>
+        <button class="btn btn-secondary" id="channelRefreshBtn">↻ &nbsp; Refresh status</button>
+      </div>
+      <p class="channel-note">Demo mode keeps changes in memory and resets when the server restarts. To connect a store, configure WooCommerce credentials in the server-side <code>.env</code> file. Never add store secrets to browser code.</p>
+    </section>
+
+    <footer>CatalogPilot AI <span>·</span> Commerce operations workspace <span>·</span> Review recommendations before publishing.</footer>
+  </main>
+
+  <div class="modal-backdrop" id="modalBackdrop">
+    <div class="modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+      <div class="modal-head"><div><p class="eyebrow">PRODUCT EDITOR</p><h2 id="modalTitle">Improve product</h2></div><button class="icon-btn" id="closeModal" aria-label="Close">×</button></div>
+      <p class="muted">Generate suggestions, edit them, then save approved fields.</p>
+      <label>Extra keywords (optional)<input id="keywords" placeholder="e.g. lightweight, everyday, gift"></label>
+      <button class="btn btn-primary full" id="generateBtn">✦ &nbsp; Generate AI suggestions</button>
+      <div class="ai-note" id="aiNote">Suggestions will appear here. Always check accuracy before saving.</div>
+      <label>Full description<textarea id="description" rows="4"></textarea></label>
+      <label>Short description<input id="shortDescription"></label>
+      <label>SKU<input id="sku"></label>
+      <label>Price<input id="price" type="number" min="0" step="0.01"></label>
+      <label>Stock quantity<input id="stockQuantity" type="number" min="0" step="1"></label>
+      <div class="modal-actions"><button class="btn btn-secondary" id="cancelBtn">Cancel</button><button class="btn btn-primary" id="saveBtn">Approve &amp; save</button></div>
+      <p class="tiny muted" id="saveMessage"></p>
+    </div>
+  </div>
+  <div id="toast" role="status"></div>
+  <script src="/static/app.js"></script>
+</body>
+</html>

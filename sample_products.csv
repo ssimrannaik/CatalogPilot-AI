@@ -1,0 +1,4 @@
+id,name,sku,regular_price,cost_price,stock_quantity,description,short_description,categories,attributes,images,status
+,Reusable Travel Cup,CUP-001,499,280,18,"Reusable cup for everyday drinks with a simple portable design.","Reusable travel cup","[{\"name\":\"Drinkware\"}]","[]","[]",draft
+,Desk Organizer,ORG-002,349,170,3,"Compact desk organizer for keeping stationery and small office items together.","Desk organizer","[{\"name\":\"Office\"}]","[]","[]",draft
+,Canvas Tote Bag,TOTE-003,299,125,0,"Reusable canvas tote bag for carrying everyday essentials.","Canvas tote bag","[{\"name\":\"Accessories\"}]","[]","[]",draft
